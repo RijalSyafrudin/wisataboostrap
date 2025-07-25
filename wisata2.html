@@ -1,0 +1,1348 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pesan Tiket Wisata - Kota Batu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --hero-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 35%, #667eea 70%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            --success-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--hero-gradient);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Header */
+        .header-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-brand {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .header-brand:hover {
+            color: #ffd700;
+            transform: scale(1.05);
+        }
+
+        .header-brand i {
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            color: #ffd700;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-circle {
+            background: var(--accent-gradient);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 1rem;
+        }
+
+        .step.active .step-line {
+            background: var(--accent-gradient);
+        }
+
+        /* Main Card */
+        .booking-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.8s ease-out 0.3s both;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header-custom {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-header-custom::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .card-title-main {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Form Styles */
+        .form-container {
+            padding: 2.5rem;
+            color: white;
+        }
+
+        .form-floating {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-floating > .form-control,
+        .form-floating > .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1rem;
+            padding: 1rem 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-floating > .form-control:focus,
+        .form-floating > .form-select:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ffd700;
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+            color: white;
+        }
+
+        .form-floating > label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-select:focus ~ label {
+            color: #ffd700;
+        }
+
+        .form-floating .form-control::placeholder {
+            color: transparent;
+        }
+
+        .form-floating option {
+            background: #2a5298;
+            color: white;
+        }
+
+        /* Radio Button Group */
+        .gender-group {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gender-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .radio-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .radio-item input[type="radio"] {
+            margin: 0;
+            transform: scale(1.2);
+        }
+
+        .radio-item label {
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        /* Icon Input Groups */
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            z-index: 10;
+        }
+
+        /* Tooltips */
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background: var(--accent-gradient);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
+            color: white;
+        }
+
+        .btn-secondary-custom {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary-custom:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-custom:hover {
+            background: #ffd700;
+            color: #1e3c72;
+            transform: translateY(-2px);
+        }
+
+        /* Loading Spinner */
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Footer */
+        .footer-custom {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .booking-card {
+                margin: 1rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+            
+            .card-title-main {
+                font-size: 1.5rem;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .step {
+                font-size: 0.9rem;
+            }
+            
+            .step-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Custom Validation Styles */
+        .form-control:invalid {
+            border-color: #ff6b6b;
+        }
+
+        .form-control:valid {
+            border-color: #56ab2f;
+        }
+
+        .invalid-feedback {
+            color: #ff6b6b;
+            font-weight: 500;
+        }
+
+        .valid-feedback {
+            color: #56ab2f;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="header-brand">
+                    <i class="fas fa-mountain"></i>
+                    Wisata Batu
+                </a>
+                <div class="text-white">
+                    <i class="fas fa-ticket-alt me-2"></i>
+                    <span>Pemesanan Tiket</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="step active" id="step1">
+                    <div class="step-circle">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="d-none d-md-inline">Data Diri</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step2">
+                    <div class="step-circle">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <span class="d-none d-md-inline">Detail Tiket</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step3">
+                    <div class="step-circle">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <span class="d-none d-md-inline">Pembayaran</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Booking Card -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="booking-card">
+                    <!-- Card Header -->
+                    <div class="card-header-custom">
+                        <h2 class="card-title-main">
+                            <i class="fas fa-ticket-alt me-3"></i>
+                            Pemesanan Tiket Wisata
+                        </h2>
+                        <p class="card-subtitle mb-0">Lengkapi form di bawah untuk memesan tiket wisata Anda</p>
+                    </div>
+
+                    <!-- Form Container -->
+                    <div class="form-container">
+                        <form id="bookingForm" novalidate>
+                            <!-- Step 1: Data Diri -->
+                            <div class="form-step active" id="formStep1">
+                                <h4 class="mb-4 text-center">
+                                    <i class="fas fa-user-circle me-2"></i>
+                                    Informasi Personal
+                                </h4>
+
+                                <!-- Nama Lengkap -->
+                                <div class="form-floating">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="nama" 
+                                           name="nama"
+                                           placeholder="Masukkan nama lengkap Anda" 
+                                           required
+                                           minlength="3"
+                                           maxlength="50">
+                                    <label for="nama">
+                                        <i class="fas fa-user me-2"></i>Nama Lengkap
+                                    </label>
+                                    <i class="input-icon fas fa-user"></i>
+                                    <div class="invalid-feedback">
+                                        Nama lengkap harus diisi (3-50 karakter)
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-floating">
+                                    <input type="email" 
+                                           class="form-control" 
+                                           id="email" 
+                                           name="email"
+                                           placeholder="contoh@email.com" 
+                                           required>
+                                    <label for="email">
+                                        <i class="fas fa-envelope me-2"></i>Email
+                                    </label>
+                                    <i class="input-icon fas fa-envelope"></i>
+                                    <div class="invalid-feedback">
+                                        Masukkan alamat email yang valid
+                                    </div>
+                                </div>
+
+                                <!-- No. Telepon -->
+                                <div class="form-floating">
+                                    <input type="tel" 
+                                           class="form-control" 
+                                           id="telepon" 
+                                           name="telepon"
+                                           placeholder="08123456789" 
+                                           required
+                                           pattern="[0-9]{10,13}">
+                                    <label for="telepon">
+                                        <i class="fas fa-phone me-2"></i>No. Telepon
+                                    </label>
+                                    <i class="input-icon fas fa-phone"></i>
+                                    <div class="invalid-feedback">
+                                        Masukkan nomor telepon yang valid (10-13 digit)
+                                    </div>
+                                </div>
+
+                                <!-- Jenis Kelamin -->
+                                <div class="gender-group">
+                                    <div class="gender-label">
+                                        <i class="fas fa-venus-mars"></i>
+                                        Jenis Kelamin
+                                    </div>
+                                    <div class="radio-group">
+                                        <div class="radio-item">
+                                            <input type="radio" id="laki" name="jenis" value="Pria" required>
+                                            <label for="laki">
+                                                <i class="fas fa-mars me-1"></i>Pria
+                                            </label>
+                                        </div>
+                                        <div class="radio-item">
+                                            <input type="radio" id="wanita" name="jenis" value="Wanita" required>
+                                            <label for="wanita">
+                                                <i class="fas fa-venus me-1"></i>Wanita
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Pilih jenis kelamin
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <button type="button" class="btn btn-primary-custom" onclick="nextStep(2)">
+                                        <i class="fas fa-arrow-right me-2"></i>
+                                        Lanjutkan
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Detail Tiket -->
+                            <div class="form-step" id="formStep2" style="display: none;">
+                                <h4 class="mb-4 text-center">
+                                    <i class="fas fa-map-marked-alt me-2"></i>
+                                    Detail Pemesanan
+                                </h4>
+
+                                <!-- Pilihan Wisata -->
+                                <div class="form-floating">
+                                    <select class="form-select" id="pilihan-wisata" name="wisata" required>
+                                        <option value="">Pilih Destinasi Wisata</option>
+                                        <option value="museum-angkut">🚗 Museum Angkut - Rp 100.000</option>
+                                        <option value="bns">🌙 Batu Night Spectacular - Rp 85.000</option>
+                                        <option value="san-terra">🌸 Flora Wisata San Terra - Rp 75.000</option>
+                                        <option value="jatim-park-1">🎡 Jawa Timur Park 1 - Rp 120.000</option>
+                                        <option value="jatim-park-2">🦁 Jawa Timur Park 2 - Rp 130.000</option>
+                                        <option value="jatim-park-3">🦕 Jawa Timur Park 3 - Rp 140.000</option>
+                                        <option value="taman-langit">☁️ Taman Langit Gunung Banyak - Rp 50.000</option>
+                                    </select>
+                                    <label for="pilihan-wisata">
+                                        <i class="fas fa-map-marker-alt me-2"></i>Pilihan Wisata
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        Pilih destinasi wisata
+                                    </div>
+                                </div>
+
+                                <!-- Tanggal Kunjungan -->
+                                <div class="form-floating">
+                                    <input type="date" 
+                                           class="form-control" 
+                                           id="tanggal" 
+                                           name="tanggal"
+                                           required
+                                           min="">
+                                    <label for="tanggal">
+                                        <i class="fas fa-calendar-alt me-2"></i>Tanggal Kunjungan
+                                    </label>
+                                    <i class="input-icon fas fa-calendar-alt"></i>
+                                    <div class="invalid-feedback">
+                                        Pilih tanggal kunjungan (minimal hari ini)
+                                    </div>
+                                </div>
+
+                                <!-- Jumlah Tiket -->
+                                <div class="form-floating">
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="jumlah-tiket" 
+                                           name="jumlahTiket"
+                                           placeholder="1"
+                                           min="1" 
+                                           max="10" 
+                                           value="1"
+                                           required>
+                                    <label for="jumlah-tiket">
+                                        <i class="fas fa-users me-2"></i>Jumlah Tiket
+                                    </label>
+                                    <i class="input-icon fas fa-users"></i>
+                                    <div class="invalid-feedback">
+                                        Jumlah tiket minimal 1, maksimal 10
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-3 justify-content-center mt-4">
+                                    <button type="button" class="btn btn-secondary-custom" onclick="previousStep(1)">
+                                        <i class="fas fa-arrow-left me-2"></i>
+                                        Kembali
+                                    </button>
+                                    <button type="button" class="btn btn-primary-custom" onclick="nextStep(3)">
+                                        <i class="fas fa-arrow-right me-2"></i>
+                                        Lanjutkan
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Pembayaran -->
+                            <div class="form-step" id="formStep3" style="display: none;">
+                                <h4 class="mb-4 text-center">
+                                    <i class="fas fa-credit-card me-2"></i>
+                                    Pembayaran
+                                </h4>
+
+                                <!-- Ringkasan Pesanan -->
+                                <div class="alert alert-info" style="background: rgba(52, 152, 219, 0.2); border: 1px solid rgba(52, 152, 219, 0.3); color: white;">
+                                    <h6><i class="fas fa-receipt me-2"></i>Ringkasan Pesanan:</h6>
+                                    <div id="orderSummary">
+                                        <!-- Summary will be populated by JavaScript -->
+                                    </div>
+                                </div>
+
+                                <!-- Uang Muka -->
+                                <div class="form-floating tooltip-wrapper">
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="uangdp" 
+                                           name="uangMuka"
+                                           placeholder="50000"
+                                           min="50000" 
+                                           step="1000"
+                                           required
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="Uang muka minimal Rp 50.000">
+                                    <label for="uangdp">
+                                        <i class="fas fa-money-bill-wave me-2"></i>Uang Muka (DP)
+                                    </label>
+                                    <i class="input-icon fas fa-money-bill-wave"></i>
+                                    <div class="invalid-feedback">
+                                        Uang muka minimal Rp 50.000
+                                    </div>
+                                    <div class="form-text text-white-50">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Sisa pembayaran dapat dilakukan di lokasi
+                                    </div>
+                                </div>
+
+                                <!-- Metode Pembayaran -->
+                                <div class="gender-group">
+                                    <div class="gender-label">
+                                        <i class="fas fa-credit-card"></i>
+                                        Metode Pembayaran DP
+                                    </div>
+                                    <div class="radio-group">
+                                        <div class="radio-item">
+                                            <input type="radio" id="transfer" name="metodeBayar" value="Transfer Bank" required>
+                                            <label for="transfer">
+                                                <i class="fas fa-university me-1"></i>Transfer Bank
+                                            </label>
+                                        </div>
+                                        <div class="radio-item">
+                                            <input type="radio" id="ewallet" name="metodeBayar" value="E-Wallet" required>
+                                            <label for="ewallet">
+                                                <i class="fas fa-mobile-alt me-1"></i>E-Wallet
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-3 justify-content-center mt-4">
+                                    <button type="button" class="btn btn-secondary-custom" onclick="previousStep(2)">
+                                        <i class="fas fa-arrow-left me-2"></i>
+                                        Kembali
+                                    </button>
+                                    <button type="submit" class="btn btn-primary-custom" id="submitBtn">
+                                        <span class="btn-text">
+                                            <i class="fas fa-check me-2"></i>
+                                            Proses Pesanan
+                                        </span>
+                                        <span class="btn-loading" style="display: none;">
+                                            <span class="spinner-border spinner-border-sm me-2"></span>
+                                            Processing...
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons for Step 1 -->
+                            <div class="text-center mt-4" id="mainActions" style="display: none;">
+                                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                                    <button type="button" class="btn btn-outline-custom" onclick="resetForm()">
+                                        <i class="fas fa-redo me-2"></i>
+                                        Reset Form
+                                    </button>
+                                    <a href="index.html" class="btn btn-secondary-custom">
+                                        <i class="fas fa-home me-2"></i>
+                                        Kembali ke Beranda
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-custom">
+        <div class="container">
+            <p class="mb-0">
+                <i class="fas fa-mountain me-2"></i>
+                <strong>Wisata Kota Batu</strong> - Nikmati pengalaman wisata terbaik bersama kami
+            </p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header" style="background: var(--success-gradient); color: white; border: none;">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto;">
+                <strong class="me-auto">Berhasil</strong>
+                <small>Baru saja</small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" style="background: white; color: #333;">
+                Pesanan Anda telah berhasil diproses!
+            </div>
+        </div>
+
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header" style="background: var(--accent-gradient); color: white; border: none;">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Error</strong>
+                <small>Baru saja</small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" style="background: white; color: #333;">
+                Terjadi kesalahan. Silakan periksa data Anda.
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Global variables
+        let currentStep = 1;
+        const totalSteps = 3;
+        let bookingData = {};
+        
+        // Price data
+        const wisataPrices = {
+            'museum-angkut': 100000,
+            'bns': 85000,
+            'san-terra': 75000,
+            'jatim-park-1': 120000,
+            'jatim-park-2': 130000,
+            'jatim-park-3': 140000,
+            'taman-langit': 50000
+        };
+
+        const wisataNames = {
+            'museum-angkut': 'Museum Angkut',
+            'bns': 'Batu Night Spectacular',
+            'san-terra': 'Flora Wisata San Terra',
+            'jatim-park-1': 'Jawa Timur Park 1',
+            'jatim-park-2': 'Jawa Timur Park 2',
+            'jatim-park-3': 'Jawa Timur Park 3',
+            'taman-langit': 'Taman Langit Gunung Banyak'
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+            setupEventListeners();
+            setMinDate();
+        });
+
+        function initializePage() {
+            // Initialize tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Set current step
+            updateStepIndicator();
+        }
+
+        function setupEventListeners() {
+            const form = document.getElementById('bookingForm');
+            
+            // Form submission
+            form.addEventListener('submit', handleFormSubmit);
+            
+            // Input validation on change
+            const inputs = form.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.addEventListener('change', validateField);
+                input.addEventListener('input', validateField);
+            });
+
+            // Real-time price calculation
+            document.getElementById('pilihan-wisata').addEventListener('change', updateOrderSummary);
+            document.getElementById('jumlah-tiket').addEventListener('input', updateOrderSummary);
+            
+            // DP validation
+            document.getElementById('uangdp').addEventListener('input', validateDP);
+        }
+
+        function setMinDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('tanggal').setAttribute('min', today);
+        }
+
+        function nextStep(step) {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                showStep(step);
+            }
+        }
+
+        function previousStep(step) {
+            showStep(step);
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(stepEl => {
+                stepEl.style.display = 'none';
+            });
+            
+            // Show current step
+            document.getElementById(`formStep${step}`).style.display = 'block';
+            
+            // Update current step
+            currentStep = step;
+            updateStepIndicator();
+            
+            // Update order summary if on step 3
+            if (step === 3) {
+                updateOrderSummary();
+            }
+        }
+
+        function updateStepIndicator() {
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                if (i <= currentStep) {
+                    stepEl.classList.add('active');
+                } else {
+                    stepEl.classList.remove('active');
+                }
+            }
+        }
+
+        function validateCurrentStep() {
+            const currentStepEl = document.getElementById(`formStep${currentStep}`);
+            const inputs = currentStepEl.querySelectorAll('input, select');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!validateField({ target: input })) {
+                    isValid = false;
+                }
+            });
+
+            return isValid;
+        }
+
+        function validateField(event) {
+            const field = event.target;
+            const value = field.value.trim();
+            let isValid = true;
+            let errorMessage = '';
+
+            // Reset validation state
+            field.classList.remove('is-invalid', 'is-valid');
+
+            // Check if field is required and empty
+            if (field.hasAttribute('required') && !value) {
+                isValid = false;
+                errorMessage = 'Field ini wajib diisi';
+            }
+
+            // Specific validation based on field type
+            switch (field.type) {
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (value && !emailRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Format email tidak valid';
+                    }
+                    break;
+                    
+                case 'tel':
+                    const phoneRegex = /^[0-9]{10,13}$/;
+                    if (value && !phoneRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Nomor telepon harus 10-13 digit';
+                    }
+                    break;
+                    
+                case 'text':
+                    if (field.id === 'nama') {
+                        if (value && (value.length < 3 || value.length > 50)) {
+                            isValid = false;
+                            errorMessage = 'Nama harus 3-50 karakter';
+                        }
+                    }
+                    break;
+                    
+                case 'number':
+                    const min = parseInt(field.getAttribute('min'));
+                    const max = parseInt(field.getAttribute('max'));
+                    const numValue = parseInt(value);
+                    
+                    if (value && (numValue < min || numValue > max)) {
+                        isValid = false;
+                        errorMessage = `Nilai harus antara ${min} dan ${max}`;
+                    }
+                    break;
+                    
+                case 'date':
+                    const selectedDate = new Date(value);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (selectedDate < today) {
+                        isValid = false;
+                        errorMessage = 'Tanggal tidak boleh kurang dari hari ini';
+                    }
+                    break;
+            }
+
+            // Radio button validation
+            if (field.type === 'radio') {
+                const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
+                const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                
+                if (!isChecked) {
+                    isValid = false;
+                    errorMessage = 'Pilih salah satu opsi';
+                }
+            }
+
+            // Apply validation styles
+            if (isValid) {
+                field.classList.add('is-valid');
+            } else {
+                field.classList.add('is-invalid');
+                const feedback = field.parentNode.querySelector('.invalid-feedback');
+                if (feedback && errorMessage) {
+                    feedback.textContent = errorMessage;
+                }
+            }
+
+            return isValid;
+        }
+
+        function validateDP() {
+            const dpField = document.getElementById('uangdp');
+            const wisataSelect = document.getElementById('pilihan-wisata');
+            const jumlahTiket = parseInt(document.getElementById('jumlah-tiket').value) || 1;
+            
+            if (wisataSelect.value) {
+                const totalPrice = wisataPrices[wisataSelect.value] * jumlahTiket;
+                const dpValue = parseInt(dpField.value) || 0;
+                
+                if (dpValue < 50000) {
+                    dpField.classList.add('is-invalid');
+                    dpField.classList.remove('is-valid');
+                    return false;
+                } else if (dpValue > totalPrice) {
+                    dpField.classList.add('is-invalid');
+                    dpField.classList.remove('is-valid');
+                    const feedback = dpField.parentNode.querySelector('.invalid-feedback');
+                    if (feedback) {
+                        feedback.textContent = 'DP tidak boleh melebihi total harga';
+                    }
+                    return false;
+                } else {
+                    dpField.classList.add('is-valid');
+                    dpField.classList.remove('is-invalid');
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        function saveCurrentStepData() {
+            const currentStepEl = document.getElementById(`formStep${currentStep}`);
+            const inputs = currentStepEl.querySelectorAll('input, select');
+            
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    if (input.checked) {
+                        bookingData[input.name] = input.value;
+                    }
+                } else {
+                    bookingData[input.name] = input.value;
+                }
+            });
+        }
+
+        function updateOrderSummary() {
+            const wisataSelect = document.getElementById('pilihan-wisata');
+            const jumlahTiket = parseInt(document.getElementById('jumlah-tiket').value) || 1;
+            const summaryEl = document.getElementById('orderSummary');
+            
+            if (!wisataSelect.value) {
+                summaryEl.innerHTML = '<p class="mb-0">Pilih destinasi wisata terlebih dahulu</p>';
+                return;
+            }
+            
+            const wisataNama = wisataNames[wisataSelect.value];
+            const hargaSatuan = wisataPrices[wisataSelect.value];
+            const totalHarga = hargaSatuan * jumlahTiket;
+            
+            summaryEl.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Destinasi:</strong> ${wisataNama}</p>
+                        <p class="mb-1"><strong>Jumlah Tiket:</strong> ${jumlahTiket} orang</p>
+                        <p class="mb-1"><strong>Harga per Tiket:</strong> ${formatCurrency(hargaSatuan)}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Total Harga:</strong> ${formatCurrency(totalHarga)}</p>
+                        <p class="mb-0 text-warning"><strong><i class="fas fa-info-circle me-1"></i>Minimal DP: Rp 50.000</strong></p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            if (!validateCurrentStep()) {
+                showToast('errorToast');
+                return;
+            }
+            
+            // Save final step data
+            saveCurrentStepData();
+            
+            // Show loading state
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-flex';
+            submitBtn.disabled = true;
+            
+            // Simulate processing
+            setTimeout(() => {
+                processBooking();
+            }, 2000);
+        }
+
+        function processBooking() {
+            // Collect all form data
+            const formData = new FormData(document.getElementById('bookingForm'));
+            const finalData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                finalData[key] = value;
+            }
+            
+            // Add calculated fields
+            const wisataSelect = document.getElementById('pilihan-wisata');
+            const jumlahTiket = parseInt(document.getElementById('jumlah-tiket').value);
+            const totalHarga = wisataPrices[wisataSelect.value] * jumlahTiket;
+            const sisaPembayaran = totalHarga - parseInt(finalData.uangMuka);
+            
+            finalData.totalHarga = totalHarga;
+            finalData.sisaPembayaran = sisaPembayaran;
+            finalData.wisataNama = wisataNames[wisataSelect.value];
+            
+            // Show success message
+            showBookingSuccess(finalData);
+            
+            // Reset button state
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            
+            btnText.style.display = 'inline-flex';
+            btnLoading.style.display = 'none';
+            submitBtn.disabled = false;
+            
+            // Show toast
+            showToast('successToast');
+        }
+
+        function showBookingSuccess(data) {
+            const bookingCard = document.querySelector('.booking-card');
+            
+            bookingCard.innerHTML = `
+                <div class="card-header-custom">
+                    <h2 class="card-title-main">
+                        <i class="fas fa-check-circle me-3"></i>
+                        Pemesanan Berhasil!
+                    </h2>
+                    <p class="card-subtitle mb-0">Terima kasih, pesanan Anda telah diproses</p>
+                </div>
+                
+                <div class="form-container">
+                    <div class="alert alert-success" style="background: var(--success-gradient); border: none; color: white;">
+                        <h5><i class="fas fa-ticket-alt me-2"></i>Detail Pemesanan</h5>
+                        <hr style="border-color: rgba(255,255,255,0.3);">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="mb-2"><strong>Nama:</strong> ${data.nama}</p>
+                                <p class="mb-2"><strong>Email:</strong> ${data.email}</p>
+                                <p class="mb-2"><strong>Telepon:</strong> ${data.telepon}</p>
+                                <p class="mb-2"><strong>Jenis Kelamin:</strong> ${data.jenis}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-2"><strong>Destinasi:</strong> ${data.wisataNama}</p>
+                                <p class="mb-2"><strong>Tanggal:</strong> ${formatDate(data.tanggal)}</p>
+                                <p class="mb-2"><strong>Jumlah Tiket:</strong> ${data.jumlahTiket} orang</p>
+                                <p class="mb-2"><strong>Metode Bayar:</strong> ${data.metodeBayar}</p>
+                            </div>
+                        </div>
+                        
+                        <hr style="border-color: rgba(255,255,255,0.3);">
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="mb-1"><strong>Total Harga:</strong></p>
+                                <h5 class="text-warning">${formatCurrency(data.totalHarga)}</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="mb-1"><strong>DP Dibayar:</strong></p>
+                                <h5 class="text-info">${formatCurrency(data.uangMuka)}</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="mb-1"><strong>Sisa Bayar:</strong></p>
+                                <h5 class="text-light">${formatCurrency(data.sisaPembayaran)}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="mb-4">
+                            <p class="text-white-50 mb-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Simpan detail pemesanan ini. Anda akan menerima konfirmasi via email.
+                            </p>
+                            <p class="text-white-50">
+                                <i class="fas fa-map-marker-alt me-2"></i>
+                                Sisa pembayaran dapat dilakukan di lokasi wisata
+                            </p>
+                        </div>
+                        
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+                            <button type="button" class="btn btn-outline-custom" onclick="printBooking()">
+                                <i class="fas fa-print me-2"></i>
+                                Cetak Tiket
+                            </button>
+                            <button type="button" class="btn btn-secondary-custom" onclick="resetForm()">
+                                <i class="fas fa-plus me-2"></i>
+                                Pesan Lagi
+                            </button>
+                            <a href="index.html" class="btn btn-primary-custom">
+                                <i class="fas fa-home me-2"></i>
+                                Kembali ke Beranda
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatDate(dateString) {
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                weekday: 'long'
+            };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        function printBooking() {
+            window.print();
+        }
+
+        function resetForm() {
+            // Reset form
+            document.getElementById('bookingForm').reset();
+            
+            // Reset validation classes
+            document.querySelectorAll('.form-control, .form-select').forEach(input => {
+                input.classList.remove('is-valid', 'is-invalid');
+            });
+            
+            // Reset to step 1
+            currentStep = 1;
+            showStep(1);
+            
+            // Clear booking data
+            bookingData = {};
+            
+            // Reload page to reset everything
+            location.reload();
+        }
+
+        function showToast(toastId) {
+            const toastEl = document.getElementById(toastId);
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+
+        // Utility functions
+        function addPulseEffect(element) {
+            element.classList.add('pulse');
+            setTimeout(() => {
+                element.classList.remove('pulse');
+            }, 2000);
+        }
+
+        // Add smooth scrolling for better UX
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Auto-scroll when changing steps
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(stepEl => {
+                stepEl.style.display = 'none';
+            });
+            
+            // Show current step
+            document.getElementById(`formStep${step}`).style.display = 'block';
+            
+            // Update current step
+            currentStep = step;
+            updateStepIndicator();
+            
+            // Update order summary if on step 3
+            if (step === 3) {
+                updateOrderSummary();
+            }
+            
+            // Smooth scroll to top
+            setTimeout(scrollToTop, 100);
+        }
+    </script>
+</body>
+</html>
